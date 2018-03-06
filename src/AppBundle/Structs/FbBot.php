@@ -13,10 +13,9 @@ use Symfony\Component\Config\Definition\Exception\Exception;
 class FbBot
 {
 
-
     private $hubVerifyToken = null;
     private $accessToken = null;
-    private $tokken = false;
+    private $token = false;
     protected $client = null;
     function __construct()
     {
@@ -86,16 +85,18 @@ class FbBot
                 "content-type: application/json",
             ),
         ));
+        if($recipient != null){
+            $response = curl_exec($curl);
+            $err = curl_error($curl);
 
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
+            curl_close($curl);
 
-        curl_close($curl);
-
-        if ($err) {
-            echo "cURL Error #:" . $err;
-        } else {
-            echo $response;
+            if ($err) {
+                echo "cURL Error #:" . $err;
+            } else {
+                echo $response;
+            }
         }
+
     }
 }

@@ -16,18 +16,18 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $tokken = $request->get('hub_verify_token');
+        $token = $request->get('hub_verify_token');
         $hubVerifyToken = 'cloudwaysschool';
         $challange = $request->get('hub_challenge');
         $accessToken = 'EAACUluVis4kBAPrD4ieX6m5ZAZCas2L3OQ8p8eVLds2o9gH2cBMMD77uO6zgYUKjpioeFQscjS9GdougKQZAeEy8kU5mKNBTwtYhCjT9nSAsoiRZCe7WjllHzLDjzY4a8RPNZBsuLLa834bzahugjCbblpngOLN4HTtYApDM2TTD9Nri6g8gN';
         $bot = new FbBot();
         $bot->setHubVerifyToken($hubVerifyToken);
         $bot->setaccessToken($accessToken);
-        echo $bot->verifyTokken($tokken,$challange);
+        echo $bot->verifyTokken($token,$challange);
         $input = json_decode(file_get_contents('php://input'), true);
         $message = $bot->readMessage($input);
-        $textmessage = $bot->sendMessage($message);
-
+        $textmessage = $bot->sendMessage($message,$accessToken);
+        $textmessage = $bot->sendMessage($message,$accessToken);
         return new Response('');
     }
 }
